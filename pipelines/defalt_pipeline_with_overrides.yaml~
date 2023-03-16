@@ -1,0 +1,15 @@
+description: The same as default_pipeline.bash with YAML overrides
+instrument: lsst.obs.subaru.HyperSuprimeCam
+imports:
+  - location: $DRP_PIPE_DIR/pipelines/HSC/DRP-ci_hsc.yaml
+tasks:
+  calibrate:
+    class: lsst.pipe.tasks.calibrate.CalibrateTask
+    config:
+      requireAstrometry: False
+      requirePhotoCal: False
+      astrometry.maxMeanDistanceArcsec: 0.025
+  makeWarp:
+    class: lsst.pipe.tasks.assembleCoadd.CompareWarpAssembleCoaddTask
+    config:
+      select.maxPsfTraceRadiusDelta: 0.2
